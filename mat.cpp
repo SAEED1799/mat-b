@@ -1,30 +1,23 @@
-
-//
-// Created by saeed on 3/11/2022.
-//
-
 #include "mat.hpp"
 #include <vector>
 #include <iostream>
 #include <string>
-using namespace std;
 using namespace ariel;
 const int maxAsciiSym = 126;
 const int minAsciiSym = 33;
 
 // checking if matrix boundaries are not negative
-bool check(int i, int j)
-{
-    if (i < 0 || j < 0)
-    {
-        return false;
-    }
-    return true;
-}
-     namespace ariel{
-     string mat(int num2, int num1, char a, char b)
-     
-{
+// bool check(int i, int j)
+// {
+//     if (i < 0 || j < 0)
+//     {
+//         return (i < 0)||(j<0) ;
+//     }
+//     return (i >= 0)||(j>=0) ;
+// }
+namespace ariel{
+    string mat(int num2, int num1, char a, char b){
+
 
     if (num1 % 2 == 0 || num2 % 2 == 0)
     {
@@ -39,136 +32,56 @@ bool check(int i, int j)
     {
         throw invalid_argument("incorrect symbol");
     }
+   
+        //char arr[num1][num2];
+        vector<vector<char>> arr( num1, vector<char>( num2 ) );
+        int row=0;
+        int cols=0;
+        int x=num1-1;
+        int y= num2-1;
+        char z=a;
 
-    // num1= rows , num2 = cols
-    char arr[num1][num2];
-    // vector<vector<char>> arr( num1, vector<char>( num2) );
-    int sum = 0;
-    // int max = num1 * num2;
-    /*
-      for loop for the length of the matrix
-      -
-      -
-      -
-      -
-      -
-      for the num2 \2
-    */
-    for (int i = 0; i < num2 / 2 + 1; ++i)
-    {
-        /**
-         * 1 1 1
-         * - - -
-         * - - -
-         */
-        for (int j = i; j < num1 - i; ++j)
+        while (x>-1&&y>-1)
         {
-
-            if (i % 2 == 0)
-            {
-                cout << "rows: " << i << endl;
-                cout << "cols: " << j << endl;
-                bool ans = check(i, j);
-                if (!ans)
-                {
-                    continue;
-                }
-                arr[j][i] = a;
-                sum++;
-            }
-            else
-            {
-                cout << "rows: " << i << endl;
-                cout << "cols: " << j << endl;
-                bool ans = check(i, j);
-                if (!ans)
-                {
-                    continue;
-                }
-                cout << "rows: " << j << endl;
-                cout << "cols: " << i << endl;
-                //  cout << "i: " << i << " j:" << j << endl;
-                arr[j][i] = b;
-                sum++;
-            }
+            if(row%2==0&&cols%2==0)
+            {z=a;}
+            else{z=b;}
+            /*
+            1 1 1 
+            - - - 
+            - - -
+            */
+           for (int i = row; i <= y; i++)
+           {
+               arr[row][i]=z;/* code */
+           }
+            /*
+            1 1 1 
+            - - - 
+            1 1 1
+            */
+            for (int i = row; i <= y; i++)
+           {
+               arr[x][i]=z;/* code */
+           }
+            for (int i = cols; i <= x; i++)
+           {
+               arr[i][cols]=z;/* code */
+           }
+            for (int i = cols; i <= x; i++)
+           {
+               arr[i][y]=z;/* code */
+           }
+            
+            
+           row=row+1;
+           cols=cols+1;
+           x=x-1;
+           y=y-1;
+            /* code */
         }
+        
 
-        /**
-         * - - -
-         * - - -
-         * 1 1 1
-         */
-        for (int j = i; j < num1 - i; ++j)
-        {
-            if (i % 2 == 0)
-            {
-                cout << "cols: " << num2 - i - 1 << endl;
-
-                bool ans = check(j, num2 - i - 1);
-                if (!ans)
-                {
-                    continue;
-                }
-                arr[j][num2 - i - 1] = a;
-                sum++;
-            }
-            else
-            {
-
-                arr[j][num2 - i - 1] = b;
-                sum++;
-            }
-        }
-        /**
-         * 1 - -
-         * 1 - -
-         * 1 - -
-         */
-        for (int j = i; j < num2 - i - 1; ++j)
-        {
-            bool ans = check(i, j);
-            if (!ans)
-            {
-                continue;
-            }
-            if (i % 2 == 0)
-            {
-
-                arr[i][j] = a;
-                sum++;
-            }
-            else
-            {
-                arr[i][j] = b;
-                sum++;
-            }
-        }
-        /**
-         * - - 1
-         * - - 1
-         * - - 1
-         */
-        for (int j = i; j < num2 - i - 1; ++j)
-        {
-            bool ans = check(num1 - i - 1, j);
-            if (!ans)
-            {
-                continue;
-            }
-            if (i % 2 == 0)
-            {
-
-                arr[num1 - i - 1][j] = a;
-                sum++;
-            }
-            else
-            {
-
-                arr[num1 - i - 1][j] = b;
-                sum++;
-            }
-        }
-    }
     string s;
     for (int i = 0; i < num1; i++)
     {
@@ -186,8 +99,7 @@ bool check(int i, int j)
     // }
     return s;
 }
-     }
-     
+}
 
 // int main() {
 //     std::cout << mat(4,3,'0','1') << std::endl;
