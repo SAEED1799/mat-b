@@ -4,5 +4,5 @@
 
 using namespace std;
 namespace ariel {
-    string mat(int num1, int num2, char a, char b);
+    string mat(int num2, int num1, char a, char b);
 }
